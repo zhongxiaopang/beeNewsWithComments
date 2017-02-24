@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # beeapp
 
 > A Vue.js project
@@ -28,3 +29,7 @@ npm test
 ```
 
 For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+=======
+# beeNewsWithComments
+as the titled 
+>>>>>>> 3e5b46ee3302abb3a03dc26e162581556b45ea28
