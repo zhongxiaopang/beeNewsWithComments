@@ -1,5 +1,6 @@
-初次尝试用vue 写项目 本地git server bad 直接push上来了 
-新闻详情页 + 评论 + 评论输入框 + 看不懂产品没有提交按钮理解不了
+初次尝试用vue 写项目 本地git server... 直接push上来了 
+新闻详情页 + 评论 + 评论输入框 + 产品稿没有提交按钮
+尚未完成
 # bee newspage & comments
 
 > A Vue.js project
