@@ -45,51 +45,17 @@ export default {
         {
           avatar: '',
           content: {
-            author: 'zhasang',
-            date: '2017-02-14',
-            text: 'ok'
-          },
-          comIns: [
-            {
-              avatar: 'false',
-              content: {
-                author: 'author - backend',
-                date: '2017-02-14',
-                text: '评论？'
-              }
-            },
-            {
-              avatar: '',
-              content: {
-                author: 'author',
-                date: '2017-02-14',
-                text: '评论的回复'
-              }
-            }
-          ]
-        },
-        {
-          avatar: '',
-          content: {
-            author: 'author',
-            date: '2017-02-14',
-            text: '评论'
+            author: '',
+            date: '',
+            text: ''
           },
           comIns: [
             {
               avatar: '',
               content: {
-                author: 'author',
-                date: '2017-02-14',
-                text: '评论的回复'
-              }
-            },
-            {
-              avatar: '',
-              content: {
-                author: 'author',
-                date: '2017-02-14',
-                text: '评论的回复'
+                author: '',
+                date: '',
+                text: ''
               }
             }
           ]
@@ -101,34 +67,25 @@ export default {
     inputComment
   },
   created () {
-    // const userInfo = this.getUserInfo()
-    // if (userInfo != null) {
-    //   this.id = userInfo.id
-    //   this.name = userInfo.name
-    // } else {
-    //   this.id = ''
-    //   this.name = ''
-    // }
     this.getDatas()
   },
   methods: {
     showInput () {
-      console.log('showInput')
+      console.log(this.$route.params.id)
     },
     getDatas () {
-      // this.$http.get('http://app.91bee.com/api/{timestamp}/{appid}/{sign}/{method}') // 向后端发送请求
-      this.$http.get('https://seven-lh.github.io/demos/comment.json') // 向后端发送请求
+      var url = 'https://seven-lh.github.io/' + this.$route.params.id + '/comment.json'
+      this.$http.get(url) // 向后端发送请求
       .then((res) => {
         if (res.status === 200) {
-          // this.comens = JSON.parse(res.data) // 将获取的信息塞入实例
           this.comens = res.data // 将获取的信息塞入实例
           console.log(res.data)
-          this.$message.success('json is ok ')
+          this.$message.success('获取' + url)
         } else {
           this.$message.error('获取失败！')
         }
       }, (err) => {
-        this.$message.error('获取失败！')
+        this.$message.error('获取失败！' + url)
         console.log(err)
       })
     }

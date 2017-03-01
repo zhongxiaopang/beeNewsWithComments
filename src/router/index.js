@@ -9,8 +9,7 @@ export default new Router({
   base: __dirname,
   routes: [
     {
-      path: '/',
-      name: 'article',
+      path: '/api/:id',
       components: {
         default: commentItem,
         article: article
@@ -18,7 +17,7 @@ export default new Router({
     },
     {
       path: '*',
-      redirect: '/'
+      component: article
     }
   ]
 })

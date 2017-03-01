@@ -1,12 +1,12 @@
 <template>
   <div class="u-container m-article">
     <header>
-      <h1>{{title}}</h1>
-      <p class="article-by">编辑：{{edit}} &nbsp;&nbsp;| &nbsp;&nbsp;来源：{{from}}</p>
-      <p class="article-by">{{publishDay}}</p>
+      <h1>{{article.title}} </h1>
+      <p class="article-by">编辑：{{article.edit}} &nbsp;&nbsp;| &nbsp;&nbsp;来源：{{article.from}}</p>
+      <p class="article-by">{{article.publishDay}}</p>
     </header>
     <article class="article-details">
-      <p>{{text}}</p>
+      <p>{{article.text}}</p>
     </article>
   </div>
 </template>
@@ -14,13 +14,38 @@
 <script>
 export default {
   name: 'article',
+  created () {
+    this.getArticle()
+  },
   data () {
     return {
-      title: '这个页面，你评估一下时间呗，APP那个新闻的详情页，你这边跟张闻佳商量的怎么样了？?',
-      edit: 'by Who ?',
-      from: 'by Where ?',
-      publishDay: '2017-02-10 17:56',
-      text: '这个页面，你评估一下时间呗，APP那个新闻的详情页，你这边跟张闻佳商量的怎么样了？有什么问题吗？这个页面，你评估一下时间呗，APP那个新闻的详情页，你这边跟张闻佳商量的怎么样了？有什么问题吗？这个页面，你评估一下时间呗，APP那个新闻的详情页，你这边跟张闻佳商量的怎么样了？有什么问题吗？这个页面，你评估一下时间呗，APP那个新闻的详情页，你这边跟张闻佳商量的怎么样了？有什么问题吗？这个页面，你评估一下时间呗，APP那个新闻的详情页，你这边跟张闻佳商量的怎么样了？有什么问题吗？这个页面，你评估一下时间呗，APP那个新闻的详情页，你这边跟张闻佳商量的怎么样了？有什么问题吗？这个页面，你评估一下时间呗，APP那个新闻的详情页，你这边跟张闻佳商量的怎么样了？有什么问题吗？这个页面，你评估一下时间呗，APP那个新闻的详情页，你这边跟张闻佳商量的怎么样了？有什么问题吗？这个页面，你评估一下时间呗，APP那个新闻的详情页，你这边跟张闻佳商量的怎么样了？有什么问题吗？这个页面，你评估一下时间呗，APP那个新闻的详情页，你这边跟张闻佳商量的怎么样了？有什么问题吗？'
+      article: {
+        title: '',
+        edit: '',
+        from: '',
+        publishDay: '',
+        text: ''
+      }
+    }
+  },
+  methods: {
+    getArticle () {
+      var url = 'https://seven-lh.github.io/' + this.$route.params.id + '/article.json'
+      console.log(url)
+      this.$http.get(url)
+       .then((res) => {
+         if (res.status === 200) {
+           this.article = res.data // 将获取的信息塞入实例
+           console.log(res.data)
+           this.$message.success(' json ready ok !!!!!!!!!!!!!!!!!! ' + url)
+         } else {
+           this.$message.error('获取失败！')
+         }
+       }, (err) => {
+         this.$message.error('获取失败！' + url)
+         console.log(err)
+       }
+      )
     }
   }
 }

@@ -8,8 +8,7 @@
         <mt-button @click="handleShare" slot="right">分享</mt-button>
     </mt-header>
     <router-view class="u-nav" name="article"></router-view>
-    <router-view class="u-container comment-input" name="input"></router-view>
-    <router-view class=""></router-view>
+    <router-view ></router-view>
   </div>
 </template>
 
@@ -17,15 +16,6 @@
 export default {
   name: 'app',
   created () {
-    // const userInfo = this.getUserInfo()
-    // if (userInfo != null) {
-    //   this.id = userInfo.id
-    //   this.name = userInfo.name
-    // } else {
-    //   this.id = ''
-    //   this.name = ''
-    // }
-    // this.getDatas()
   },
   methods: {
     handleShare () {
