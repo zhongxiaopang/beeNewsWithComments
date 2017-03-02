@@ -9,7 +9,7 @@ export default new Router({
   base: __dirname,
   routes: [
     {
-      path: '/api/:id',
+      path: '',
       components: {
         default: commentItem,
         article: article

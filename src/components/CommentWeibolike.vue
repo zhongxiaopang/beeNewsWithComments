@@ -67,15 +67,17 @@ export default {
     inputComment
   },
   created () {
-    this.getDatas()
+    // this.getDatas()
   },
   methods: {
     showInput () {
       console.log(this.$route.params.id)
     },
     getDatas () {
-      var url = 'https://seven-lh.github.io/' + this.$route.params.id + '/comment.json'
-      this.$http.get(url) // 向后端发送请求
+      var url = 'http://q7xfptewwr.proxy.qqbrowser.cc/api/1488448356513/10005/7127678a3c5625cd5ba7715ce470ce3d/queryAppNewsList'
+      this.$http.post(url, {
+        id: this.$route.params.id
+      })
       .then((res) => {
         if (res.status === 200) {
           this.comens = res.data // 将获取的信息塞入实例
