@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import article from 'components/Article'
-import commentItem from 'components/CommentWeibolike'
+// import commentItem from 'components/CommentWeibolike'
 
 Vue.use(Router)
 export default new Router({
@@ -9,10 +9,9 @@ export default new Router({
   base: __dirname,
   routes: [
     {
-      path: '',
+      path: '/',
       components: {
-        default: commentItem,
-        article: article
+        default: article
       }
     },
     {

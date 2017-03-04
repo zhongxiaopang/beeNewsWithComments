@@ -11,6 +11,8 @@ import router from './router'
 import VueRouter from 'vue-router'
 import Axios from 'axios'
 
+Axios.defaults.baseURL = 'http://10.1.1.245/api/1488448356513/10005/7127678a3c5625cd5ba7715ce470ce3d'
+
 Vue.prototype.$http = Axios // 类似于vue-resource的调用方法
 Vue.use(ElementUI)
 Vue.use(VueRouter)

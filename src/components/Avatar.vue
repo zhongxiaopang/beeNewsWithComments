@@ -15,9 +15,7 @@ export default {
     }
   },
   methods: {
-    showInput () {
-      console.log("showInput")
-    }
+    
   }
 }
 </script>

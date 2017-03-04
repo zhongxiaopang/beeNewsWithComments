@@ -1,19 +1,27 @@
 <template>
-  <div class="u-container m-article">
-    <header>
-      <h1>{{article.name}} </h1>
-      <p class="article-by">编辑：{{article.edit}} &nbsp;&nbsp;| &nbsp;&nbsp;来源：{{article.source}} </p>
-      <p class="article-by " >{{article.modify_time}}  </p>
-    </header>
-    <article class="article-details">{{article.details}} </article>
+	<div>
+	  <div class="u-container m-article">
+	    <header>
+	      <h1>{{article.name}} </h1>
+	      <p class="article-by">编辑：{{article.edit}} &nbsp;&nbsp;| &nbsp;&nbsp;来源：{{article.source}} </p>
+	      <p class="article-by">{{article.modify_time}}  </p>
+	    </header>
+	    <article class="article-details" v-html="article.details"></article>
+	  </div>
+	  <comment></comment>
   </div>
 </template>
 
 <script>
+import comment from './CommentWeibolike.vue'
+var qs = require('qs')
 export default {
   name: 'article',
   created () {
     this.getArticle()
+  },
+  components: {
+    comment
   },
   data () {
     return {
@@ -28,33 +36,26 @@ export default {
   },
   methods: {
     getArticle () {
-      console.log(this.$route.query.id)
-      // console.log(this.$route.query.type)
-      console.log(this.$route.query.token)
       let url
       if (this.$route.query.type === '1') {
-        url = 'http://10.1.1.245/api/1488448356513/10005/7127678a3c5625cd5ba7715ce470ce3d/queryAppNewsList'
-        // console.log('1')
+        url = '/queryAppNewsList'
       } else {
-        url = 'http://10.1.1.245/api/1488448356513/10005/7127678a3c5625cd5ba7715ce470ce3d/queryAppNewsList'
-        // console.log('2')
+        url = '/queryAppNewsList'
       }
-      this.$http.post(url, {
-        id: this.$route.query.id,
-        token: this.$route.query.token
-      })
+      this.$http.post(url, qs.stringify({
+        id: this.$route.query.id
+      }))
        .then((res) => {
          if (res.status === 200) {
            if (res.data.resultCode === 0) {
              this.article = res.data.resultData.list[0] // 将获取的信息塞入实例
-             console.log(res.data.resultData)
+           } else {
+             this.$message.error(res.data.resultMsg)
            }
-           this.$message.success(' json ready ok !!!!!!!!!!!!!!!!!! ')
          } else {
-           this.$message.error('获取失败！')
+           console.log(res)
          }
        }, (err) => {
-         this.$message.error('获取失败！')
          console.log(err)
        }
       )
@@ -79,7 +80,6 @@ p:first-child {
     margin-top: 0em;
 }
 .m-article {
-  padding-top: 25px;
   padding-bottom: 20px;
 }
 .article-by{color: #959595;}

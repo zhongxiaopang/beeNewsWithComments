@@ -5,24 +5,24 @@
       <div v-for="comen in comens" class="comen-item">
             <div class="comment comments">
                 <a class="avatar">
-                    <img v-if="comen.avatar" :src="comen.avatar">
-                    <img v-else src="../assets/avatar-default.jpg">
+                    <img v-if="comen.headerImg" :src="comen.headerImg">
+                    <img v-else src="/image/common/headerImg/default.png">
                 </a>
-                <div class="content" @click="showInput">
-                    <a class="author">{{comen.content.author}}</a>
+                <div class="content" >
+                    <a class="author">{{comen.askUser}}</a>
                     <div class="metadata">
-                        <span class="date">{{comen.content.date}}</span>
+                        <span class="date">{{comen.askTime}}</span>
                     </div>
-                    <div class="text">{{comen.content.text}}</div>
-                    <div class="comments">
-                        <div v-for="item in comen.comIns" class="comment">
+                    <div class="text">{{comen.askContent}}</div>
+                    <div class="comments" v-if=" comen.replyContent != '' ">
+                        <div class="comment">
                             <div class="content">
-                                <a class="author">{{item.content.author}}</a>
+                                <a class="author">{{comen.replyUser}}</a>
                                 <div class="metadata">
-                                    <span class="date">{{item.content.date}}</span>
+                                    <span class="date">{{comen.replyTime}}</span>
                                 </div>
                                 <div class="text">
-                                    {{item.content.text}}
+                                    {{comen.replyContent}}
                                 </div>
                             </div>
                         </div>
@@ -37,28 +37,20 @@
 
 <script>
 import inputComment from './inputComment.vue'
+var qs = require('qs')
 export default {
   name: 'commentItem',
   data () {
     return {
       comens: [
         {
-          avatar: '',
-          content: {
-            author: '',
-            date: '',
-            text: ''
-          },
-          comIns: [
-            {
-              avatar: '',
-              content: {
-                author: '',
-                date: '',
-                text: ''
-              }
-            }
-          ]
+          headerImg: '',
+          askUser: '',
+          askTime: '',
+          askContent: '',
+          replyUser: '',
+          replyTime: '',
+          replyContent: ''
         }
       ]
     }
@@ -67,27 +59,36 @@ export default {
     inputComment
   },
   created () {
-    // this.getDatas()
+    this.getComments()
+  },
+  computed: {
   },
   methods: {
-    showInput () {
-      console.log(this.$route.params.id)
-    },
-    getDatas () {
-      var url = 'http://q7xfptewwr.proxy.qqbrowser.cc/api/1488448356513/10005/7127678a3c5625cd5ba7715ce470ce3d/queryAppNewsList'
-      this.$http.post(url, {
-        id: this.$route.params.id
-      })
+    getComments () {
+      let sourceId
+      if (this.$route.query.type === '1') {
+        sourceId = 7
+      } else {
+        sourceId = 8
+      }
+      // console.log(sourceId)
+      var url = '/queryQuestionList'
+      this.$http.post(url, qs.stringify({
+        videoId: this.$route.query.id,
+        source: sourceId
+      }))
       .then((res) => {
         if (res.status === 200) {
-          this.comens = res.data // 将获取的信息塞入实例
-          console.log(res.data)
-          this.$message.success('获取' + url)
+          if (res.data.resultCode === 0 && res.data.resultData) {
+            console.log(res.data.resultData.list)
+            this.comens = res.data.resultData.list // 将获取的信息塞入实例
+          } else {
+            this.$message.error(res.data.resultMsg)
+          }
         } else {
-          this.$message.error('获取失败！')
+          console.log(res)
         }
       }, (err) => {
-        this.$message.error('获取失败！' + url)
         console.log(err)
       })
     }
