@@ -1,12 +1,14 @@
 <template>
 	<div>
 	  <div class="u-container m-article">
-	    <header>
-	      <h1>{{article.name}} </h1>
-	      <p class="article-by">编辑：{{article.edit}} &nbsp;&nbsp;| &nbsp;&nbsp;来源：{{article.source}} </p>
-	      <p class="article-by">{{article.modify_time}}  </p>
-	    </header>
-	    <article class="article-details" v-html="article.details"></article>
+       <div class="article">
+         <header>
+           <h1>{{article.name}} </h1>
+           <p class="article-by">编辑：{{article.edit}} &nbsp;&nbsp;| &nbsp;&nbsp;来源：{{article.source}} </p>
+           <p class="article-by">{{article.modify_time}}  </p>
+         </header>
+         <article class="article-details" v-html="article.details"></article>
+       </div>
 	  </div>
 	  <comment></comment>
   </div>
@@ -14,7 +16,7 @@
 
 <script>
 import comment from './CommentWeibolike.vue'
-var qs = require('qs')
+let qs = require('qs')
 export default {
   name: 'article',
   created () {
@@ -26,7 +28,7 @@ export default {
   data () {
     return {
       article: {
-        name: '',
+        name: null,
         edit: '',
         source: '',
         modify_time: '',

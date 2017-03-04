@@ -37,7 +37,7 @@
 
 <script>
 import inputComment from './inputComment.vue'
-var qs = require('qs')
+let qs = require('qs')
 export default {
   name: 'commentItem',
   data () {
@@ -71,7 +71,7 @@ export default {
       } else {
         sourceId = 8
       }
-      // console.log(sourceId)
+      console.log(sourceId)
       var url = '/queryQuestionList'
       this.$http.post(url, qs.stringify({
         videoId: this.$route.query.id,

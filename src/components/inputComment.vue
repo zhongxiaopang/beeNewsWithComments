@@ -6,7 +6,7 @@
       </a>
       <form class="form-width" v-on:submit.prevent="" @keyup.enter="submitComment">
         <div class="input-box f-fl">
-          <input v-model="questionContent"  placeholder="请输入100个字符" @keyup.enter="callFather" >
+          <input v-model="questionContent"  placeholder="请输入100个字符" @keyup.enter="refreshFather" >
         </div>
         <input type="hidden" id="token" name="token" :value="user.loginToken">
       </form>
@@ -14,9 +14,9 @@
 </template>
 
 <script>
-var qs = require('qs')
+let qs = require('qs')
 export default {
-  name: 'commentItem',
+  name: 'commentInput',
   data () {
     return {
       user: {
@@ -49,10 +49,9 @@ export default {
         console.log(err)
       })
     },
-    callFather () {
-      // this.
-      // this.$emit('getComments')
-      this.$root.$emit('getComments()')
+    refreshFather () {
+      this.$parent.getComments()
+      this.$message.success('ok')
     },
     submitComment () {
       let url = '/addQuestion'
@@ -79,10 +78,10 @@ export default {
             this.$message.err(res.data.resultMsg)
           }
         }
-        this.callFather()
-        // this.$parent('getComments')
+        this.refreshFather()
       }, (err) => {
         console.log(err)
+        this.$message.err(err)
       })
     }
   }
