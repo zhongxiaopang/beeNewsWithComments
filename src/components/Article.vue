@@ -1,20 +1,16 @@
 <template>
 	<div>
 	  <div class="u-container m-article">
-       <div class="article">
-         <header>
-           <h1>{{article.name}} </h1>
-           <p class="article-by">编辑：{{article.edit}} &nbsp;&nbsp;| &nbsp;&nbsp;来源：{{article.source}} </p>
-           <p class="article-by">{{article.modify_time}}  </p>
-         </header>
-         <article class="article-details" v-html="article.details"></article>
-       </div>
+          <articleType1 v-if="queryType == 1" :this-article="dataProps"></articleType1>
+          <articleType2 v-else  :this-article="dataProps"></articleType2>
 	  </div>
 	  <comment></comment>
   </div>
 </template>
 
 <script>
+import articleType1 from './articleType1.vue'
+import articleType2 from './articleType2.vue'
 import comment from './CommentWeibolike.vue'
 let qs = require('qs')
 export default {
@@ -23,34 +19,32 @@ export default {
     this.getArticle()
   },
   components: {
-    comment
+    comment,
+    articleType1,
+    articleType2
   },
   data () {
     return {
-      article: {
-        name: null,
-        edit: '',
-        source: '',
-        modify_time: '',
-        details: ''
-      }
+      queryType: 1,
+      url: '/queryAppNewsList',
+      dataProps: ''
     }
   },
   methods: {
     getArticle () {
-      let url
       if (this.$route.query.type === '1') {
-        url = '/queryAppNewsList'
+        this.queryType = 1
       } else {
-        url = '/queryAppNewsList'
+        this.url = '/queryAppNewsList'
+        this.queryType = 2
       }
-      this.$http.post(url, qs.stringify({
+      this.$http.post(this.url, qs.stringify({
         id: this.$route.query.id
       }))
        .then((res) => {
          if (res.status === 200) {
            if (res.data.resultCode === 0) {
-             this.article = res.data.resultData.list[0] // 将获取的信息塞入实例
+             this.dataProps = res.data.resultData.list[0] // 将获取的信息塞入实例
            } else {
              this.$message.error(res.data.resultMsg)
            }
