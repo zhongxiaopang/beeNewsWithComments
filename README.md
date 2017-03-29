@@ -10,7 +10,7 @@ vue-cli 脚手架 vue-router 处理前端路由 Axios的ajax请求 ，用了 Min
 
         2提交评论父组件重新ajax请求评论成功 子组件调用副组件的方法  通过实例 this.$parent.Function() 实现
 
-初次尝试用vue 写项目 本地git server... 直接push上来了
+vue 写项目 本地git server... 直接push上来了
 
 
 # bee newspage & comments
@@ -43,7 +43,3 @@ npm test
 ```
 
 For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
-=======
-# beeNewsWithComments
-as the titled 
->>>>>>> 3e5b46ee3302abb3a03dc26e162581556b45ea28
